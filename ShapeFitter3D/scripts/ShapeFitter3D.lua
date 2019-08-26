@@ -8,7 +8,7 @@
 
   Description:
   This Sample shows how to use a ShapeFitter to fit circles and lines to edges
-  in heightmaps.
+  in heightmaps. The results are visualized in the 3D viewer.
 
   How to Run:
   Starting this sample is possible either by running the app (F5) or
@@ -109,9 +109,10 @@ local function main()
   local circle1 = findHighCircle(heightmap, searchCyl1, 3)
   local highLine, lowLine = findHighLowLines(heightmap, searchBox2)
 
--- Show fitting results
+  -- Show fitting results
   viewer:clear()
   local imgDecoration = View.ImageDecoration.create()
+  imgDecoration:setRange(100.0, 120.0)
   local hmViewId = viewer:addHeightmap({heightmap, intensitymap}, imgDecoration, {'Reflectance'})
 
   viewer:addShape(searchCyl1, searchDecoration, nil, hmViewId)
@@ -122,6 +123,7 @@ local function main()
   viewer:addShape(highLine, foundDecoration, nil, hmViewId)
   viewer:addShape(lowLine, foundDecoration, nil, hmViewId)
   viewer:present()
+
   print('App finished.')
 end
 
