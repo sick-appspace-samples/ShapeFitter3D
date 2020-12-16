@@ -29,7 +29,7 @@
 
 --Start of Global Scope---------------------------------------------------------
 
-local viewer = View.create()
+local viewer = View.create("viewer3D1")
 
 -- Cyan color scheme for search regions
 local regionDecoration = View.PixelRegionDecoration.create()
