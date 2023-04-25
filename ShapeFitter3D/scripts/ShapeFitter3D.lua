@@ -1,22 +1,16 @@
 
 --Start of Global Scope---------------------------------------------------------
 
-local viewer = View.create("viewer3D1")
+local viewer = View.create()
 
 -- Cyan color scheme for search regions
-local regionDecoration = View.PixelRegionDecoration.create()
-regionDecoration:setColor(0, 255, 255, 60)
-local searchDecoration = View.ShapeDecoration.create()
-searchDecoration:setFillColor(0, 255, 255, 80)
-searchDecoration:setLineColor(0, 255, 255)
-searchDecoration:setLineWidth(3)
+local regionDecoration = View.PixelRegionDecoration.create():setColor(0, 255, 255, 60)
+local searchDecoration = View.ShapeDecoration.create():setFillColor(0, 255, 255, 80)
+searchDecoration:setLineColor(0, 255, 255):setLineWidth(3)
 
 -- Green color scheme for fitted lines and circles using ransac.
-local foundDecoration = View.ShapeDecoration.create()
-foundDecoration:setFillColor(0, 255, 0, 120)
-foundDecoration:setLineColor(0, 255, 0)
-foundDecoration:setLineWidth(5)
-foundDecoration:setPointSize(9)
+local foundDecoration = View.ShapeDecoration.create():setFillColor(0, 255, 0, 120)
+foundDecoration:setLineColor(0, 255, 0):setLineWidth(5):setPointSize(9)
 
 -- Create shape fitters. Set fit mode to RANSAC to be robust
 -- against outliers. In this case, lines are fitted to distinct edges
@@ -35,7 +29,10 @@ sfCircle:setThreshold(0.4)
 
 --Start of Function and Event Scope---------------------------------------------
 
---@findHighLowLines(hm:Image, box:Shape3D) : Shape3D, Shape3D
+---@param hm Image
+---@param box Shape3D
+---@return Shape3D
+---@return Shape3D
 local function findHighLowLines(hm, box)
   local boxRegion, boxMinZ, boxMaxZ = box:toPixelRegion(hm)
 
@@ -50,7 +47,10 @@ local function findHighLowLines(hm, box)
   return highLine, lowLine
 end
 
---@findHighCircle(hm:Image, cylinder:Shape3D, innerRadius:float) : Shape3d
+---@param hm Image
+---@param cylinder Shape3D
+---@param innerRadius float
+---@return Shape3D
 local function findHighCircle(hm, cylinder, innerRadius)
   -- Extract fitting area from cylinder.
   -- The cylinder is expected to have its symmetry axis aligned with the z-axis.
